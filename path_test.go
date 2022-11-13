@@ -2,23 +2,19 @@ package path
 
 import (
 	"testing"
+
+	"github.com/godump/doa"
 )
 
 func TestPath(t *testing.T) {
-	p := Wrap("/parent/stem.suffix")
-	if p.Full != "/parent/stem.suffix" {
-		t.Fail()
-	}
-	if p.Name != "stem.suffix" {
-		t.Fail()
-	}
-	if p.Parent.Full != "/parent" {
-		t.Fail()
-	}
-	if p.Stem != "stem" {
-		t.Fail()
-	}
-	if p.Suffix != ".suffix" {
-		t.Fail()
-	}
+	p0 := Wrap("/parent/stem.suffix")
+	doa.Doa(p0.Full == "/parent/stem.suffix")
+	doa.Doa(p0.Name == "stem.suffix")
+	doa.Doa(p0.Parent.Full == "/parent")
+	doa.Doa(p0.Stem == "stem")
+	doa.Doa(p0.Suffix == ".suffix")
+
+	p1 := Wrap("/parent/name/")
+	doa.Doa(p1.Full == "/parent/name")
+	doa.Doa(p1.Name == "name")
 }
